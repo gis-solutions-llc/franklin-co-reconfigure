@@ -15,23 +15,19 @@
         margin: 0;
         padding: 0;
       }
-
       h2,
       h3 {
         margin: 10px;
         font-size: 1.2em;
       }
-
       h3 {
         font-size: 1em;
       }
-
       p {
         font-size: 0.85em;
         margin: 10px;
         text-align: left;
       }
-
       .map-overlay {
         position: absolute;
         bottom: 0;
@@ -42,21 +38,18 @@
         overflow: auto;
         border-radius: 3px;
       }
-
       #map {
         position: absolute;
         top: 0;
         bottom: 0;
         width: 100%;
       }
-
       #features {
         top: 0;
         height: 800px;
         margin-top: 0px;
         width: 400px;
       }
-
   </style>
   </head>
 
@@ -94,30 +87,27 @@
         
           // define access token
           mapboxgl.accessToken = 'pk.eyJ1IjoicGFjb3ZlbnRyeSIsImEiOiIzNTUyZmYwOTQyZTMyMWI1N2MwYzMzZmI5N2FhZDc0NCJ9.aICAZyWE3be2qyXy8Bny4w';
-
           //create map
           var map = new mapboxgl.Map({
             container: 'map', // container id
-            style: 'mapbox://styles/pacoventry/cjjuqv7f94jp42snpkvgyj4az' // map style URL from Mapbox Studio
+            style: 'mapbox://styles/pacoventry/cjkdc40s21rmw2sphqz87i9dv' // map style URL from Mapbox Studio
        
           });
           // wait for map to load before adjusting it
           map.on('load', function() {
-
             map.addLayer({
-              'id': 'Hypothetical_Merge_20180725_n-1fmxei',
+              'id': 'FranklinCounty_20180802-comomt',
               'type': 'fill',
               'source': {
                 'type': 'vector',
-                'url': 'mapbox://pacoventry.0wdba5lv'
+                'url': 'mapbox://pacoventry.5midrddn'
               },
-              'source-layer': 'Hypothetical_Merge_20180725_n-1fmxei',
+              'source-layer': 'FranklinCounty_20180802-comomt',
               'paint': {
                 'fill-color': 'rgba(72, 67, 45, 0)',
                 'fill-outline-color': 'rgba(0, 0, 0, 0)'
               }
             });
-
             map.addLayer({
         "id": "points",
         "type": "symbol",
@@ -156,25 +146,18 @@
             "text-anchor": "top"
         }
     });
-
             // make a pointer cursor
             map.getCanvas().style.cursor = 'default';
-
-
-
             // set map bounds to the continental US
             map.fitBounds([
                  [-78.857716, 33.7113756],
               [-98.857716, 53.7113756]
             ]);
-
             // make a pointer cursor
             map.getCanvas().style.cursor = 'default';
-
             // define layer names
             var layers = [];
             var colors = ['#FFEDA0', '#FED976', '#FEB24C', '#FD8D3C', '#FC4E2A', '#E31A1C', '#BD0026', '#800026'];
-
             // create legend
             for (i = 0; i < layers.length; i++) {
               var layer = layers[i];
@@ -183,7 +166,6 @@
               var key = document.createElement('span');
               key.className = 'legend-key';
               key.style.backgroundColor = color;
-
               var value = document.createElement('span');
               value.innerHTML = layer;
               item.appendChild(key);
@@ -194,7 +176,7 @@
            // change info window on hover
             map.on('mousemove', function(e) {
               var neighborhood = map.queryRenderedFeatures(e.point, {
-                layers: ['Hypothetical_Merge_20180725_n-1fmxei']
+                layers: ['FranklinCounty_20180802-comomt']
               });
               console.log("neighbourhood:" + neighborhood.length);
               if (neighborhood.length === 1) {
