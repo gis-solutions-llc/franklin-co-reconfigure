@@ -15,19 +15,23 @@
         margin: 0;
         padding: 0;
       }
+
       h2,
       h3 {
         margin: 10px;
         font-size: 1.2em;
       }
+
       h3 {
         font-size: 1em;
       }
+
       p {
         font-size: 0.85em;
         margin: 10px;
         text-align: left;
       }
+
       .map-overlay {
         position: absolute;
         bottom: 0;
@@ -38,18 +42,21 @@
         overflow: auto;
         border-radius: 3px;
       }
+
       #map {
         position: absolute;
         top: 0;
         bottom: 0;
         width: 100%;
       }
+
       #features {
         top: 0;
         height: 800px;
         margin-top: 0px;
         width: 400px;
       }
+
   </style>
   </head>
 
@@ -76,7 +83,7 @@
     <div class="map-overlay" id="features">
       <h3>Franklin County Neighborhoods </h3>
       <div id="pd">
-        <p>Hover over a Neighborhood</p>
+        <p>Hover over a neighborhood</p>
       </div>
     </div>
     <div class="map-overlay" id="legend">
@@ -87,6 +94,7 @@
         
           // define access token
           mapboxgl.accessToken = 'pk.eyJ1IjoicGFjb3ZlbnRyeSIsImEiOiIzNTUyZmYwOTQyZTMyMWI1N2MwYzMzZmI5N2FhZDc0NCJ9.aICAZyWE3be2qyXy8Bny4w';
+
           //create map
           var map = new mapboxgl.Map({
             container: 'map', // container id
@@ -95,69 +103,40 @@
           });
           // wait for map to load before adjusting it
           map.on('load', function() {
+
             map.addLayer({
-              'id': 'FranklinCounty_20180802-comomt',
+              'id': 'Hypothetical_20180813-1j4zuk',
               'type': 'fill',
               'source': {
                 'type': 'vector',
-                'url': 'mapbox://pacoventry.5midrddn'
+                'url': 'mapbox://pacoventry.09y3mcus'
               },
-              'source-layer': 'FranklinCounty_20180802-comomt',
+              'source-layer': 'Hypothetical_20180813-1j4zuk',
               'paint': {
                 'fill-color': 'rgba(72, 67, 45, 0)',
                 'fill-outline-color': 'rgba(0, 0, 0, 0)'
               }
             });
-            map.addLayer({
-        "id": "points",
-        "type": "symbol",
-        "source": {
-            "type": "geojson",
-            "data": {
-                "type": "FeatureCollection",
-                "features": [{
-                    "type": "Feature",
-                    "geometry": {
-                        "type": "Point",
-                        "coordinates": [-77.03238901390978, 38.913188059745586]
-                    },
-                    "properties": {
-                        "title": "Mapbox DC",
-                        "icon": "monument"
-                    }
-                }, {
-                    "type": "Feature",
-                    "geometry": {
-                        "type": "Point",
-                        "coordinates": [-122.414, 37.776]
-                    },
-                    "properties": {
-                        "title": "Mapbox SF",
-                        "icon": "harbor"
-                    }
-                }]
-            }
-        },
-        "layout": {
-            "icon-image": "{icon}-15",
-            "text-field": "{title}",
-            "text-font": ["Open Sans Semibold", "Arial Unicode MS Bold"],
-            "text-offset": [0, 0.6],
-            "text-anchor": "top"
-        }
-    });
+
+
             // make a pointer cursor
             map.getCanvas().style.cursor = 'default';
+
+
+
             // set map bounds to the continental US
             map.fitBounds([
-                 [-78.857716, 33.7113756],
+              [-78.857716, 33.7113756],
               [-98.857716, 53.7113756]
             ]);
+
             // make a pointer cursor
             map.getCanvas().style.cursor = 'default';
+
             // define layer names
             var layers = [];
             var colors = ['#FFEDA0', '#FED976', '#FEB24C', '#FD8D3C', '#FC4E2A', '#E31A1C', '#BD0026', '#800026'];
+
             // create legend
             for (i = 0; i < layers.length; i++) {
               var layer = layers[i];
@@ -166,6 +145,7 @@
               var key = document.createElement('span');
               key.className = 'legend-key';
               key.style.backgroundColor = color;
+
               var value = document.createElement('span');
               value.innerHTML = layer;
               item.appendChild(key);
@@ -175,77 +155,34 @@
        
            // change info window on hover
             map.on('mousemove', function(e) {
-              var neighborhood = map.queryRenderedFeatures(e.point, {
-                layers: ['FranklinCounty_20180802-comomt']
+              var buildings = map.queryRenderedFeatures(e.point, {
+                layers: ['Hypothetical_20180813-1j4zuk']
               });
-              console.log("neighbourhood:" + neighborhood.length);
-              if (neighborhood.length === 1) {
+
+              if (buildings.length > 0) {
                 document.getElementById('pd').innerHTML = 
-                "<p><em>Name: " + neighborhood[0].properties.Name +
-                "<p><em>Name: " + neighborhood[0].properties.descriptio +
-      				  "</em></p>";
-              } else if (neighborhood.length === 2) {
-                document.getElementById('pd').innerHTML = 
-                "<p><em>Name: " + neighborhood[0].properties.Name +
-                "<p><em>Name: " + neighborhood[0].properties.descriptio +
-                "<p><em>Name: " + neighborhood[1].properties.Name +
-                "<p><em>Name: " + neighborhood[1].properties.descriptio +
-                "</em></p>";
-              } else if (neighborhood.length === 3) {
-                document.getElementById('pd').innerHTML = 
-                "<p><em>Name: " + neighborhood[0].properties.Name +
-                "<p><em>Name: " + neighborhood[0].properties.descriptio +
-                "<p><em>Name: " + neighborhood[1].properties.Name +
-                "<p><em>Name: " + neighborhood[1].properties.descriptio +
-                "<p><em>Name: " + neighborhood[2].properties.Name +
-                "<p><em>Name: " + neighborhood[2].properties.descriptio +
-                "</em></p>";
-              } else if (neighborhood.length === 4) {
-                document.getElementById('pd').innerHTML = 
-                "<p><em>Name: " + neighborhood[0].properties.Name +
-                "<p><em>Name: " + neighborhood[0].properties.descriptio +
-                "<p><em>Name: " + neighborhood[1].properties.Name +
-                "<p><em>Name: " + neighborhood[1].properties.descriptio +
-                "<p><em>Name: " + neighborhood[2].properties.Name +
-                "<p><em>Name: " + neighborhood[2].properties.descriptio +
-                "<p><em>Name: " + neighborhood[3].properties.Name +
-                "<p><em>Name: " + neighborhood[3].properties.descriptio +
-                "</em></p>";
-              } else if (neighborhood.length === 5) {
-                document.getElementById('pd').innerHTML = 
-                "<p><em>Name: " + neighborhood[0].properties.Name +
-                "<p><em>Name: " + neighborhood[0].properties.descriptio +
-                "<p><em>Name: " + neighborhood[1].properties.Name +
-                "<p><em>Name: " + neighborhood[1].properties.descriptio +
-                "<p><em>Name: " + neighborhood[2].properties.Name +
-                "<p><em>Name: " + neighborhood[2].properties.descriptio +
-                "<p><em>Name: " + neighborhood[3].properties.Name +
-                "<p><em>Name: " + neighborhood[3].properties.descriptio +
-                "<p><em>Name: " + neighborhood[4].properties.Name +
-                "<p><em>Name: " + neighborhood[4].properties.descriptio +
-                "</em></p>";
-              } else if (neighborhood.length === 6) {
-                document.getElementById('pd').innerHTML = 
-                "<p><em>Name: " + neighborhood[0].properties.Name +
-                "<p><em>Name: " + neighborhood[0].properties.descriptio +
-                "<p><em>Name: " + neighborhood[1].properties.Name +
-                "<p><em>Name: " + neighborhood[1].properties.descriptio +
-                "<p><em>Name: " + neighborhood[2].properties.Name +
-                "<p><em>Name: " + neighborhood[2].properties.descriptio +
-                "<p><em>Name: " + neighborhood[3].properties.Name +
-                "<p><em>Name: " + neighborhood[3].properties.descriptio +
-                "<p><em>Name: " + neighborhood[4].properties.Name +
-                "<p><em>Name: " + neighborhood[4].properties.descriptio +
-                "<p><em>Name: " + neighborhood[5].properties.Name +
-                "<p><em>Name: " + neighborhood[5].properties.descriptio +
-                "</em></p>";
+                "<p><em>Name: " + buildings[0].properties.Name +
+				"<p><em>Grade: " + buildings[0].properties.GRADE +
+				"<p><em>" + buildings[0].properties.DESC1 +
+                "<p><em>" + buildings[0].properties.DESC2 +
+				"<p><em>" + buildings[0].properties.DESC3 +
+				"<p><em>" + buildings[0].properties.DESC4 +
+				"<p><em>" + buildings[0].properties.DESC5 +
+				"<p><em>" + buildings[0].properties.photo +
+				"</em></p>";
               } else {
-                document.getElementById('pd').innerHTML = '<p>Hover over a Neighborhood</p>';
+                document.getElementById('pd').innerHTML = '<p>Hover over a neighborhood</p>';
               }
             });
           });
-		
+
         </script>
+<script>
+
+map.addControl(new MapboxGeocoder({
+    accessToken: mapboxgl.accessToken
+}));
+</script>
        
         
   </body>
