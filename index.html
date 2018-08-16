@@ -9,25 +9,29 @@
     
   <script src='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v2.2.0/mapbox-gl-geocoder.min.js'></script>
 <link rel='stylesheet' href='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v2.2.0/mapbox-gl-geocoder.css' type='text/css' />
-
+<img src="https://www.dropbox.com/s/pg8i7glhi4s1eyu/new_logo.png?raw=1" alt="logo" height="150" width="211" id="demo"> 
     <style>
       body {
         margin: 0;
         padding: 0;
       }
+
       h2,
       h3 {
         margin: 10px;
         font-size: 1.2em;
       }
+
       h3 {
         font-size: 1em;
       }
+
       p {
         font-size: 0.85em;
         margin: 10px;
         text-align: left;
       }
+
       .map-overlay {
         position: absolute;
         bottom: 0;
@@ -38,19 +42,30 @@
         overflow: auto;
         border-radius: 3px;
       }
+
       #map {
         position: absolute;
         top: 0;
         bottom: 0;
         width: 100%;
       }
+
       #features {
         top: 0;
         height: 800px;
         margin-top: 0px;
         width: 400px;
       }
-	    <img src="https://files.slack.com/files-pri/TBRUQA2GP-FC8F09867/new_logo.png" height=100 style=’position:fixed;bottom:0px;left:0px;z-index:999’/>
+	  #demo{
+    /* To play around, change this to absolute */
+    position: fixed;
+    bottom: 0px;
+    right: 0px;
+    z-index: 1;
+    padding: 0px;
+    margin: 0px;
+}
+
   </style>
   </head>
 
@@ -88,14 +103,16 @@
         
           // define access token
           mapboxgl.accessToken = 'pk.eyJ1IjoicGFjb3ZlbnRyeSIsImEiOiIzNTUyZmYwOTQyZTMyMWI1N2MwYzMzZmI5N2FhZDc0NCJ9.aICAZyWE3be2qyXy8Bny4w';
+
           //create map
           var map = new mapboxgl.Map({
             container: 'map', // container id
-            style: 'mapbox://styles/pacoventry/cjkdc40s21rmw2sphqz87i9dv' // map style URL from Mapbox Studio
+            style: 'mapbox://styles/pacoventry/cjkvvt8162mve2rltcrdkb788' // map style URL from Mapbox Studio
        
           });
           // wait for map to load before adjusting it
           map.on('load', function() {
+
             map.addLayer({
               'id': 'Hypothetical_20180813-1j4zuk',
               'type': 'fill',
@@ -109,18 +126,26 @@
                 'fill-outline-color': 'rgba(0, 0, 0, 0)'
               }
             });
+
+
             // make a pointer cursor
             map.getCanvas().style.cursor = 'default';
+
+
+
             // set map bounds to the continental US
             map.fitBounds([
               [-78.857716, 33.7113756],
               [-98.857716, 53.7113756]
             ]);
+
             // make a pointer cursor
             map.getCanvas().style.cursor = 'default';
+
             // define layer names
             var layers = [];
             var colors = ['#FFEDA0', '#FED976', '#FEB24C', '#FD8D3C', '#FC4E2A', '#E31A1C', '#BD0026', '#800026'];
+
             // create legend
             for (i = 0; i < layers.length; i++) {
               var layer = layers[i];
@@ -129,6 +154,7 @@
               var key = document.createElement('span');
               key.className = 'legend-key';
               key.style.backgroundColor = color;
+
               var value = document.createElement('span');
               value.innerHTML = layer;
               item.appendChild(key);
@@ -141,12 +167,13 @@
               var buildings = map.queryRenderedFeatures(e.point, {
                 layers: ['Hypothetical_20180813-1j4zuk']
               });
+
               if (buildings.length > 0) {
                 document.getElementById('pd').innerHTML = 
-                		"<p><em>Name: " + buildings[0].properties.Name +
+                "<p><em>Name: " + buildings[0].properties.Name +
 				"<p><em>Grade: " + buildings[0].properties.GRADE +
 				"<p><em>" + buildings[0].properties.DESC1_1 +
-                		"<p><em>" + buildings[0].properties.DESC2_1 +
+                "<p><em>" + buildings[0].properties.DESC2_1 +
 				"<p><em>" + buildings[0].properties.DESC3_1 +
 				"<p><em>" + buildings[0].properties.DESC4_1 +
 				"<p><em>" + buildings[0].properties.DESC5_1 +
@@ -157,8 +184,10 @@
               }
             });
           });
+
         </script>
 <script>
+
 map.addControl(new MapboxGeocoder({
     accessToken: mapboxgl.accessToken
 }));
@@ -167,3 +196,4 @@ map.addControl(new MapboxGeocoder({
         
   </body>
   </html>
+
