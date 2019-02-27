@@ -148,7 +148,7 @@
 		text-align:center;
 		color: white;
 		width: 100px;
-	  }	  
+	  }	
 	  
 
 
@@ -212,7 +212,6 @@ text-decoration: none;
       });     
       // wait for map to load before adjusting it
       map.on('load', function() {
-      
 	  
 
         // make a pointer cursor
@@ -222,7 +221,7 @@ text-decoration: none;
           [-78.857716, 33.7113756],
           [-98.857716, 53.7113756]
         ]);
-          // define layer names
+    // define layer names
         var layers = ['A+', 'A', 'B+', 'B', 'B-', 'C+', 'C', 'C-', 'D', '<h4>MultiFamily Listings</h4>', 'Single Family', 'MultiFamily'];
         var colors = ['#295927', '#1B9842', '#98D265', '#C6E788', '#EBF7AB', '#FFEDAD', '#FECA81', '#F99E58', '#E85A3B', '#fff', '#857548' , '#567C87'];
         // create legend
@@ -245,7 +244,7 @@ text-decoration: none;
 		
 		showFeatureInfo = function(e) {
 		var parcels = map.queryRenderedFeatures(e.point, {
-            layers: ['New Neighborhoods' , 'Neighborhoods Copy']
+            layers: ['Active Listings' , 'New Neighborhoods']
           });
 		  
 		  if (parcels.length > 0) {
